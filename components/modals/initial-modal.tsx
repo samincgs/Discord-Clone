@@ -83,9 +83,6 @@ const InitialModal = () => {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground-muted text-sm font-semibold  ">
-                        Choose a server image
-                      </FormLabel>
                       <FormControl>
                         <FileUpload
                           endpoint="serverImage"
