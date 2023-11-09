@@ -12,11 +12,16 @@ import { Button } from "@/components/ui/button";
 
 import { useModal } from "@/hooks/use-modal-store";
 import { Copy, RefreshCw } from "lucide-react";
+import { useOrigin } from "@/hooks/use-origin";
 
 const InviteModal = () => {
-  const { type, isOpen, onClose } = useModal();
+  const { type, isOpen, onClose, data } = useModal();
+  const origin = useOrigin();
+  const { server } = data;
 
   const isModalOpen = isOpen && type == "invite";
+
+  const inviteUrl = `${origin}/invite/${server?.inviteCode}`;
 
   return (
     // DIALOG
@@ -34,9 +39,9 @@ const InviteModal = () => {
           <div className="flex items-center mt-2 gap-x-2">
             <Input
               className="bg-zinc-300/50 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-              value="invite-link"
+              value={inviteUrl}
             />
-            <Button size="icon">
+            <Button size="icon" className="hover:bg-slate-500/10 transition">
               <Copy className="w-4 h-4" />
             </Button>
           </div>
