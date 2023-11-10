@@ -10,14 +10,17 @@ interface InviteCodePageProps {
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
   const profile = await currentProfile();
 
+  // Check for user
   if (!profile) {
     return redirectToSignIn();
   }
 
+  // Check if this is a valid invite code
   if (!params.inviteCode) {
     redirect("/");
   }
 
+  // Check if user is already part of the server
   const existingServer = await db.server.findFirst({
     where: {
       inviteCode: params.inviteCode,
@@ -33,6 +36,7 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     return redirect(`/servers/${existingServer.id}`);
   }
 
+  // if not create a new member to the server
   const server = await db.server.update({
     where: {
       inviteCode: params.inviteCode,
@@ -47,6 +51,10 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
       },
     },
   });
+
+  if (server) {
+    return redirect(`/servers/${server.id}`);
+  }
 
   return <div>InviteCode Page</div>;
 };
