@@ -22,7 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '../ui/input';
+import { Input } from '@/components/ui/input';
+import FileUpload from '@/components/FileUpload';
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -76,7 +77,21 @@ const InitialModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             {/* IMAGE */}
             <div className='flex items-center justify-center text-center '>
-              Image Upload
+              <FormField
+                control={form.control}
+                name='imageUrl'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <FileUpload
+                        endpoint='serverImage'
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
             {/* NAME */}
             <FormField
