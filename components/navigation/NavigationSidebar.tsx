@@ -42,7 +42,14 @@ const NavigationSidebar = async () => {
       </ScrollArea>
       <div className='flex flex-col items-center justify-center gap-y-4 pb-3'>
         <DarkModeToggle />
-        <UserButton afterSignOutUrl='/' />
+        <UserButton
+          afterSignOutUrl='/'
+          appearance={{
+            elements: {
+              avatarBox: 'h-[48px] w-[48px]',
+            },
+          }}
+        />
       </div>
     </div>
   );
