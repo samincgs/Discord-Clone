@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
+import ModalProvider from '@/components/providers/ModalProvider';
 
 const font = Open_Sans({ subsets: ['latin'] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             enableSystem={false}
             storageKey='discord-theme'
           >
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>
