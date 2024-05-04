@@ -9,11 +9,11 @@ INFO
 - TypeScript
 - TailwindCSS
 - Clerk
-- PlanetScale / Aiven (still deciding)
+- Aiven
 - Prisma
 - MySQL
-- OpenAI
-- Unsplash API
+- Socket
+- Zustand
 
 ### Credits
 
