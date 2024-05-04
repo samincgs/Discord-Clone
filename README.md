@@ -20,6 +20,7 @@ INFO
 - Inspired by Code With Antonio <3
 
 Check him out!
-[CodeWithAntonio Website](https://www.codewithantonio.com)
 <br/>
-[CodeWithAntonio YT](https://www.youtube.com/@codewithantonio)
+[Antonio's Website](https://www.codewithantonio.com)
+<br/>
+[Antonio's YT](https://www.youtube.com/@codewithantonio)
