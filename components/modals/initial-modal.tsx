@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { FileUpload } from '@/components/file-upload';
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -61,7 +62,7 @@ export const InitialModal = () => {
 
   return (
     <Dialog open>
-      <DialogContent className='bg-white text-black p-0'>
+      <DialogContent className='bg-white text-black p-0 max-w-xl'>
         <DialogHeader className='px-8 pt-12'>
           <DialogTitle className='text-center text-2xl font-bold'>
             Create your server
@@ -75,7 +76,21 @@ export const InitialModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <div className='space-y-8 px-6'>
               <div className='flex items-center justify-center text-center'>
-                TODO: Image Upload
+                <FormField
+                  control={form.control}
+                  name='imageUrl'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FileUpload
+                          endpoint='serverImage'
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
               </div>
               <FormField
                 control={form.control}
