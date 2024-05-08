@@ -2,9 +2,13 @@ import { currentProfile } from '@/lib/current-profile';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
 
-import NavigationAction from './navigation-action';
 import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '../ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { ModeToggle } from '@/components/mode-toggle';
+
+import NavigationAction from './navigation-action';
+import NavigationItem from './navigation-item';
+import { UserButton } from '@clerk/nextjs';
 
 const NavigationSidebar = async () => {
   const profile = await currentProfile();
@@ -27,6 +31,28 @@ const NavigationSidebar = async () => {
     <div className='space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] py-3'>
       <NavigationAction />
       <Separator className='h-[2px] w-12 bg-zinc-300 dark:bg-zinc-700 rounded-md mx-auto' />
+      <ScrollArea className='w-full flex-1'>
+        {servers.map((server) => (
+          <div key={server.id} className='mb-4'>
+            <NavigationItem
+              id={server.id}
+              name={server.name}
+              imageUrl={server.imageUrl}
+            />
+          </div>
+        ))}
+      </ScrollArea>
+      <div className='pb-3 flex flex-col items-center gap-y-4 mt-auto'>
+        <ModeToggle />
+        <UserButton
+          afterSignOutUrl='/'
+          appearance={{
+            elements: {
+              avatarBox: 'h-[36px] w-[36px]',
+            },
+          }}
+        />
+      </div>
     </div>
   );
 };
