@@ -6,18 +6,19 @@ import { MemberRole } from '@prisma/client';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, X } from 'lucide-react';
+import {
+  ChevronDown,
+  LogOut,
+  PlusCircle,
+  Settings,
+  Trash,
+  UserPlus,
+  Users,
+} from 'lucide-react';
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles;
@@ -37,6 +38,45 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           <ChevronDown className='h-5 w-5 ml-auto' />
         </button>
       </DropdownMenuTrigger>
+      <DropdownMenuContent className='w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]'>
+        {isModerator && (
+          <DropdownMenuItem className='text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Invite People
+            <UserPlus className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+        {isAdmin && (
+          <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Server Settings
+            <Settings className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+        {isAdmin && (
+          <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Manage Members
+            <Users className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+        {isModerator && (
+          <DropdownMenuItem className=' px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Create Channel
+            <PlusCircle className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+        {isModerator && <DropdownMenuSeparator />}
+        {isAdmin && (
+          <DropdownMenuItem className='text-rose-400 dark:text-rose-600 px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Delete Server
+            <Trash className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+        {!isAdmin && (
+          <DropdownMenuItem className='text-rose-400 dark:text-rose-600 px-3 py-2 text-sm cursor-pointer flex items-center'>
+            Leave Server
+            <LogOut className='w-4 h-4 ml-auto' />
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 };
