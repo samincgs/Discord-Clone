@@ -16,11 +16,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-export const LeaveServerModal = () => {
+export const DeleteServerModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === 'leaveServer';
+  const isModalOpen = isOpen && type === 'deleteServer';
   const { server } = data;
 
   const [loading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ export const LeaveServerModal = () => {
     try {
       setIsLoading(true);
 
-      await axios.patch(`/api/servers/${server?.id}/leave`);
+      await axios.delete(`/api/servers/${server?.id}`);
       onClose();
       router.refresh();
       window.location.reload();
@@ -46,25 +46,25 @@ export const LeaveServerModal = () => {
       <DialogContent className='bg-white text-black p-0 max-w-xl'>
         <DialogHeader className='px-4 pt-8'>
           <DialogTitle className='text-center text-2xl font-bold pt-2'>
-            Leave Server
+            Delete Server
           </DialogTitle>
-          <DialogDescription className='text-center text-zinc-500'>
-            Are you sure you want to leave
-            <span className='font-semibold text-indigo-500'>
+          <DialogDescription className='text-center text-zinc-500 pt-2'>
+            Are you sure you want to do this? <br />
+            <span className='text-indigo-500 font-semibold'>
               {server?.name}
-            </span>
-            ?
+            </span>{' '}
+            will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='bg-gray-100 px-6 py-4'>
-          <div className='flex items-center justify-end w-full gap-x-4'>
-            <Button disabled={loading} onClick={onClose} variant='secondary'>
-              Cancel
-            </Button>
-            <Button disabled={loading} onClick={onClick} variant='primary'>
-              Confirm
-            </Button>
-          </div>
+          <Button
+            disabled={loading}
+            variant='destructive'
+            className='bg-rose-600'
+            onClick={onClick}
+          >
+            Delete
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
